@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Container} from "react-bootstrap"
+import NavBarTop from "./components/NavBarTop";
+import Home from "./views/Home";
+import { BrowserRouter, Switch, Route } from "react-router-dom"
+import Details from "./views/Details"
+import DetailsPlanets from "./views/DetailsPlanets"
+import injectContext from "./store/appContext"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <Container fluid>
+            <BrowserRouter>
+              <NavBarTop />
+                <div>
+                    <Switch>
+                      <Route exact path="/" component={Home} />
+                      <Route exact path="/Details/:name" component={Details} />
+                      <Route exact path="/Details-Planets/:name" component={DetailsPlanets} />
+                      <Route render={() => <h1>ERROR 404</h1> } />
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        </Container>
   );
 }
 
-export default App;
+export default injectContext(App);
